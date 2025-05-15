@@ -8,6 +8,8 @@ import com.example.scheduler.service.SourceDataReader;
 import com.example.scheduler.service.TargetWriter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -27,19 +29,19 @@ public class DataSyncService {
     @Autowired
     private DataSourceRegistry registry;
 
+//    @ConfigurationProperties("${fixed-delay.in.milliseconds}")
+//    private long fixDelay;
+
     private Integer stt = 0;
 //    @Transactional("sourceTransactionManager")
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelayString = "${fixed-delay.in.milliseconds}")
     public void sync() {
         Timestamp since = Timestamp.valueOf(LocalDateTime.now().minusMinutes(10));
 
-        for (String source : registry.getSourceNames()) {
-            JdbcTemplate jdbc = registry.getJdbcTemplate(source);
-            System.out.println( stt++ + " get from " + source + " at: " + LocalDateTime.now());
-
-            List<Map<String, Object>> rows = jdbc.queryForList(
-                    "SELECT * FROM resident_citizen WHERE updated_date >= ?", since
-            );
+        for (String sourceName : registry.getSourceNames()) {
+            JdbcTemplate jdbc = registry.getJdbcTemplate(sourceName);
+            System.out.println( stt++ +  registry.getQueryFromSource(sourceName) + " at: " + LocalDateTime.now());
+            List<Map<String, Object>> rows = jdbc.queryForList(registry.getQueryFromSource(sourceName), since);
             List<TargetCitizen> users = rows.stream()
                     .map(this::mapRowToUser)
                     .toList();

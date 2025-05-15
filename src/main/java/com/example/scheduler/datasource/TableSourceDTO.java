@@ -8,9 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DBConfigDTO {
+public class TableSourceDTO {
 
-    private String name;
+    private String query;
+//    private String tableName;
+    private String sourceName;
     private String url;
     private String username;
     private String password;

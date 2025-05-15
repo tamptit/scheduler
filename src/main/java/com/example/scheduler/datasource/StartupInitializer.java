@@ -14,10 +14,10 @@ public class StartupInitializer {
 
     @PostConstruct
     public void loadSources() {
-        List<DBConfigDTO> dbs = List.of(
-                new DBConfigDTO("source", "jdbc:mysql://localhost/resident_citizen", "root", "root123"),
-//                new DbConfig("source2", "jdbc:mysql://localhost/resident_citizen", "user", "pass"),
-                new DBConfigDTO("target", "jdbc:mysql://localhost/sync_natcitizen", "root", "root123")
+        List<TableSourceDTO> dbs = List.of(
+                new TableSourceDTO("SELECT * FROM resident_citizen WHERE updated_date >= ?","resident_citizen", "jdbc:mysql://localhost/resident_citizen", "root", "root123"),
+                new TableSourceDTO("SELECT * FROM nat_citizen WHERE updated_date >= ?","sync_natcitizen", "jdbc:mysql://localhost/sync_natcitizen", "root", "root123")
+//              define table and it's query need sync
         );
 
         registry.initialize(dbs);

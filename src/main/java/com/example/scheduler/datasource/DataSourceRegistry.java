@@ -13,24 +13,28 @@ import java.util.Set;
 @Configuration
 public class DataSourceRegistry {
 
-    private final Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private final Map<String, QueryAndDatasource> dataSourceMap = new HashMap<>();
 
-    public void initialize(List<DBConfigDTO> configs) {
-        for (DBConfigDTO config : configs) {
+    public void initialize(List<TableSourceDTO> configs) {
+        for (TableSourceDTO config : configs) {
             DriverManagerDataSource ds = new DriverManagerDataSource();
             ds.setUrl(config.getUrl());
             ds.setUsername(config.getUsername());
             ds.setPassword(config.getPassword());
             ds.setDriverClassName("com.mysql.cj.jdbc.Driver"); // adjust if needed
-
-            dataSourceMap.put(config.getName(), ds);
+            QueryAndDatasource q = new QueryAndDatasource(config.getQuery(), ds);
+            dataSourceMap.put(config.getSourceName(), q);
         }
     }
 
     public JdbcTemplate getJdbcTemplate(String name) {
-        DataSource ds = dataSourceMap.get(name);
-        System.out.println("--------------called---------------");
+        DataSource ds = dataSourceMap.get(name).getDs();
+        System.out.println("--------------called " + name);
         return new JdbcTemplate(ds);
+    }
+
+    public String getQueryFromSource(String sourceName) {
+        return dataSourceMap.get(sourceName).getQuery();
     }
 
     public Set<String> getSourceNames() {
