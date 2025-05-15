@@ -1,0 +1,30 @@
+CREATE TABLE `resident_citizen` (
+   `id` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+   `birth_date` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `blood` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `identity` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `nationality` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `personal_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+   `updated_date` timestamp(6) NULL DEFAULT NULL,
+   PRIMARY KEY (`id`),
+   UNIQUE KEY `personal_id_UNIQUE` (`personal_id`),
+   KEY `id_des` (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci
+
+ CREATE TABLE `nat_citizen` (
+    `id` varchar(36) COLLATE utf8_unicode_ci NOT NULL,
+    `birth_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `blood` smallint DEFAULT NULL,
+    `gender` smallint DEFAULT NULL,
+    `identity` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `nationality` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `personal_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+    `updated_date` timestamp(6) NULL DEFAULT NULL,
+    PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci
+
+  CREATE DATABASE `sync_natcitizen` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */
+  CREATE DATABASE `resident_citizen` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */
