@@ -4,7 +4,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class StartupInitializer {
@@ -14,12 +16,17 @@ public class StartupInitializer {
 
     @PostConstruct
     public void loadSources() {
-        List<TableSourceDTO> dbs = List.of(
-                new TableSourceDTO("SELECT * FROM resident_citizen WHERE updated_date >= ?","resident_citizen", "jdbc:mysql://localhost/resident_citizen", "root", "root123"),
-                new TableSourceDTO("SELECT * FROM nat_citizen WHERE updated_date >= ?","sync_natcitizen", "jdbc:mysql://localhost/sync_natcitizen", "root", "root123")
+        List<SourceDTO> dbs = List.of(
+                new SourceDTO(List.of("admin_role","admin_function"),
+                        "source_125", "jdbc:mysql://localhost/resident_citizen", "root", "root123"),
+                new SourceDTO(List.of("group_member"),
+                        "129_netteza", "jdbc:mysql://localhost/sync_natcitizen", "root", "root123")
 //              define table and it's query need sync
         );
+        Map<String, List<String>> qs = new HashMap<>();
+        qs.put("source_125", List.of("select * from admin_role","select * from admin_function"));
+        qs.put("source_129", List.of("select * from v_user_role","select * from group_member"));
 
-        registry.initialize(dbs);
+        registry.initialize(dbs,qs);
     }
 }

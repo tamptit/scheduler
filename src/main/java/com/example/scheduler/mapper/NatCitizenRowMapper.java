@@ -1,6 +1,6 @@
-package com.example.scheduler.repository;
+package com.example.scheduler.mapper;
 
-import com.example.scheduler.domain.resident.SourceCitizen;
+import com.example.scheduler.domain.source.SourceCitizen;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

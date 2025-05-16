@@ -1,4 +1,4 @@
-package com.example.scheduler.repository;
+package com.example.scheduler.mapper;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;

@@ -1,6 +1,6 @@
-package com.example.scheduler.repository.national;
+package com.example.scheduler.repository.target;
 
-import com.example.scheduler.domain.TargetCitizen;
+import com.example.scheduler.domain.target.TargetCitizen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

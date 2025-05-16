@@ -1,4 +1,4 @@
-package com.example.scheduler.domain;
+package com.example.scheduler.domain.target;
 
 import jakarta.persistence.*;
 

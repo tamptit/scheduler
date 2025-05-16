@@ -1,19 +1,14 @@
 package com.example.scheduler.sync;
 
 import com.example.scheduler.datasource.DataSourceRegistry;
-import com.example.scheduler.domain.TargetCitizen;
-import com.example.scheduler.repository.national.TargetRepository;
-import com.example.scheduler.repository.resident.SourceRepository;
+import com.example.scheduler.domain.target.ARole;
+import com.example.scheduler.repository.target.ARoleRepository;
 import com.example.scheduler.service.SourceDataReader;
 import com.example.scheduler.service.TargetWriter;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -26,6 +21,7 @@ public class DataSyncService {
     @Autowired
     SourceDataReader reader;
     @Autowired TargetWriter writer;
+
     @Autowired
     private DataSourceRegistry registry;
 
@@ -40,20 +36,32 @@ public class DataSyncService {
 
         for (String sourceName : registry.getSourceNames()) {
             JdbcTemplate jdbc = registry.getJdbcTemplate(sourceName);
-            System.out.println( stt++ +  registry.getQueryFromSource(sourceName) + " at: " + LocalDateTime.now());
-            List<Map<String, Object>> rows = jdbc.queryForList(registry.getQueryFromSource(sourceName), since);
-            List<TargetCitizen> users = rows.stream()
-                    .map(this::mapRowToUser)
-                    .toList();
-            writer.write(users);
+//            System.out.println( stt++ +  registry.getQueryByTableAndSource(sourceName) + " at: " + LocalDateTime.now());
+
+            List<Map<String, Object>> rows_admin_role = jdbc.queryForList(registry.getQueryByTableName("admin_role"), since);
+            List<Map<String, Object>> rows_admin_function = jdbc.queryForList(registry.getQueryByTableName("admin_function"), since);
+//            List<Map<String, Object>> rows_admin_role_function = jdbc.queryForList(registry.getQueryByTableName("admin_role_function"), since);
+//            List<Map<String, Object>> rows_admin_role_user = jdbc.queryForList(registry.getQueryByTableName("admin_role_user"), since);
+//            List<Map<String, Object>> rows_user_role = jdbc.queryForList(registry.getQueryByTableName("user_role"), since);
+
+//            registry.getQueryBySource(sourceName).forEach(t -> {
+//                List<Map<String, Object>> rows = jdbc.queryForList(t, since);
+//            });
+
+//            List<ARole> aRole = rows_admin_role.stream()
+//                    .map(this::mapRowToARole)
+//                    .toList();
+//            writer.writeArole(aRole);
+
         }
     }
 
-    private TargetCitizen mapRowToUser(Map<String, Object> row) {
-        TargetCitizen u = new TargetCitizen();
-        u.setId((String.valueOf(row.get("id"))));
-        u.setName(String.valueOf(row.get("name")));
-        return u;
-    }
+//    private ARole mapRowToARole(Map<String, Object> row) {
+//        ARole u = new ARole();
+//        u.setId(Integer.parseInt(row.get("id").toString()));
+//        u.setRoleName(row.get("role_name").toString());
+//        u.setRoleName(row.get("role_name").toString());
+//        return u;
+//    }
 
 }

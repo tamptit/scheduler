@@ -1,7 +1,6 @@
-package com.example.scheduler.repository.resident;
+package com.example.scheduler.repository.source;
 
-import com.example.scheduler.domain.resident.SourceCitizen;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.scheduler.domain.source.SourceCitizen;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
