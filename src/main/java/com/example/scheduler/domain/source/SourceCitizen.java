@@ -9,8 +9,6 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 
-//@Entity
-//@Table(name = "resident_citizen")
 @Getter
 @Setter
 public class SourceCitizen {

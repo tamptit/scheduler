@@ -15,14 +15,14 @@ import javax.sql.DataSource;
 public class DBConfig {
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.hk.datasource")
-    public DataSourceProperties targetDataSourceProperties() {
+    @ConfigurationProperties(prefix = "spring.datasource.hk")
+    public DataSourceProperties hkDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
-    public DataSource targetDataSource() {
-        return targetDataSourceProperties().initializeDataSourceBuilder().build();
+    public DataSource hkDataSource() {
+        return hkDataSourceProperties().initializeDataSourceBuilder().build();
     }
 
 }

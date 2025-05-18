@@ -5,11 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "ADMIN_FUNCTION")
 public class AdminFunction {
 
-	@Id
 	@Column(name = "FUNC_ID")
 	private Integer funcId;
 

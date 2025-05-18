@@ -5,12 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "USER_ROLE")
 public class UserRole {
-
-	
-	@Id
 	@Column(name = "USERNAME")
 	private String username;
 
@@ -28,8 +23,6 @@ public class UserRole {
 	
 	@Column(name = "GROUP_ID")
 	private Integer groupId;
-	
-
 
 	public String getUsername() {
 		return username;

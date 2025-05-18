@@ -1,6 +1,7 @@
 package com.example.scheduler.sync;
 
 import com.example.scheduler.datasource.DataSourceRegistry;
+import com.example.scheduler.domain.target.AFunction;
 import com.example.scheduler.domain.target.ARole;
 import com.example.scheduler.repository.target.ARoleRepository;
 import com.example.scheduler.service.SourceDataReader;
@@ -52,16 +53,23 @@ public class DataSyncService {
 //                    .map(this::mapRowToARole)
 //                    .toList();
 //            writer.writeArole(aRole);
-
         }
     }
 
-//    private ARole mapRowToARole(Map<String, Object> row) {
-//        ARole u = new ARole();
-//        u.setId(Integer.parseInt(row.get("id").toString()));
-//        u.setRoleName(row.get("role_name").toString());
-//        u.setRoleName(row.get("role_name").toString());
-//        return u;
-//    }
+    private ARole mapRowToARole(Map<String, Object> row) {
+        ARole u = new ARole();
+        u.setId(Integer.parseInt(row.get("id").toString()));
+        u.setRoleName(row.get("role_name").toString());
+        u.setRoleName(row.get("role_name").toString());
+        return u;
+    }
+
+    private AFunction mapRowToAFunction(Map<String, Object> row) {
+        AFunction u = new AFunction();
+        u.setFuncId(Integer.parseInt(row.get("FUNC_ID").toString()));
+        u.setFuncCode(row.get("FUNC_CODE").toString());
+        u.setFuncName(row.get("FUNC_NAME").toString());
+        return u;
+    }
 
 }

@@ -5,8 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "ADMIN_ROLE_USER")
 public class AdminRoleUser {
 
 	@Id

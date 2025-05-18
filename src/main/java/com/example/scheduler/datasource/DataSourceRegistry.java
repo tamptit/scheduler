@@ -3,6 +3,7 @@ package com.example.scheduler.datasource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Configuration
+@Service
 public class DataSourceRegistry {
 
     private final Map<String, DataSource> dataSourceMap = new HashMap<>();

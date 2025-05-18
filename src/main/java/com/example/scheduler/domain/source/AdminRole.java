@@ -8,8 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 
-@Entity
-@Table(name = "ADMIN_ROLE")
 public class AdminRole {
 
 	@Id
